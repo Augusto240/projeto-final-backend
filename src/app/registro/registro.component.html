@@ -1,0 +1,43 @@
+
+<div class="card flex justify-content-center">
+    <p-card header="Registro" [style]="{ width: '360px' }">
+
+
+            <p-floatLabel>
+                <input pInputText id="nome" [(ngModel)]="nome" />
+                <label for="username">Nome</label>
+            </p-floatLabel>
+            <br>
+
+            <p-floatLabel>
+                <input pInputText id="sobrenome" [(ngModel)]="sobrenome" />
+                <label for="username">Sobrenome</label>
+            </p-floatLabel>
+
+            <br>
+
+            <p-floatLabel>
+                <input pInputText id="usuario" [(ngModel)]="usuario" />
+                <label for="username">Usuário</label>
+            </p-floatLabel>
+
+            <br>
+
+            <p-floatLabel>
+                <input pInputText id="email" [(ngModel)]="email" />
+                <label for="username">Email</label>
+            </p-floatLabel>
+            
+            <br>
+
+            <p-floatLabel>
+            <p-password [(ngModel)]="senha" [toggleMask]="true"/>
+            <label for="senha">Senha</label>
+            </p-floatLabel>
+
+            <br>
+
+            <button [raised]="true" pButton pRipple label="Registrar" class="p-button-warning"></button>
+    </p-card>
+</div>
+
