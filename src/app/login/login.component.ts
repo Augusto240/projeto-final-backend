@@ -9,12 +9,20 @@ import { RippleModule } from 'primeng/ripple';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { PanelModule } from 'primeng/panel';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule, ButtonModule, RippleModule, RouterModule, RouterLink],
+  imports: [CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule,
+    ButtonModule, RippleModule, RouterModule, RouterLink, ToolbarModule, AvatarModule, PanelModule, MenuModule, BadgeModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

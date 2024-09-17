@@ -5,14 +5,15 @@ import { AvatarModule } from 'primeng/avatar';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { RippleModule } from 'primeng/ripple';
-
+import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ToolbarModule, PanelModule, AvatarModule, ButtonModule, MenuModule, BadgeModule, RippleModule],
+  imports: [ToolbarModule, PanelModule, AvatarModule, ButtonModule, MenuModule,
+    BadgeModule, RippleModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -46,5 +47,5 @@ export class HomeComponent implements OnInit {
         }
     ];
   }
-  
+
 }

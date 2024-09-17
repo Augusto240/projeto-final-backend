@@ -18,16 +18,16 @@ import { PanelModule } from 'primeng/panel';
 import { HomeComponent } from './home/home.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-
+import {NgModule} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoginComponent, RegistroComponent, 
-            CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule, ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule, RouterLink, 
-            AvatarModule, PanelModule, ToolbarModule, HomeComponent, MenuModule, BadgeModule, RippleModule],
+  imports: [CommonModule, RouterOutlet, LoginComponent, RegistroComponent,
+            CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule, ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule, RouterLink,
+            AvatarModule, PanelModule, ToolbarModule, HomeComponent, MenuModule, BadgeModule,
+            RippleModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
