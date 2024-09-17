@@ -13,11 +13,21 @@ import { RouterModule } from '@angular/router';
 import { RegistroComponent } from "./registro/registro.component";
 import { DividerModule } from 'primeng/divider';
 import { RouterLink } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
+import { PanelModule } from 'primeng/panel';
+import { HomeComponent } from './home/home.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoginComponent, CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule, ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule, RouterLink],
+  imports: [CommonModule, RouterOutlet, LoginComponent, RegistroComponent, 
+            CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule, ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule, RouterLink, 
+            AvatarModule, PanelModule, ToolbarModule, HomeComponent, MenuModule, BadgeModule, RippleModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

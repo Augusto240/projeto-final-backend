@@ -28,4 +28,9 @@ export class LoginComponent {
   irParaRegistro() {
     this.router.navigate(['app-registro']);
   }
+
+  irParaHome(){
+    this.router.navigate(['app-home'])
+  }
+
 }

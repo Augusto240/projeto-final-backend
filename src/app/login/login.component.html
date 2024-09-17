@@ -13,7 +13,7 @@
             </p-floatLabel>
 
             <br>
-            <button [raised]="true" pButton pRipple label="Login" class="p-button-warning"></button>
+            <button [routerLink]="['app-home']" (click)="irParaHome()" [raised]="true" pButton pRipple label="Login" class="p-button-warning"></button>
             <br><br>
             <button [routerLink]="['app-registro']" (click)="irParaRegistro()" [raised]="true" pButton pRipple label="Não possui cadastro? Registre-se" class="p-button-help"></button>
     </p-card>
