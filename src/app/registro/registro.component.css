@@ -1,0 +1,15 @@
+.card{
+    align-items: center;
+    justify-self: center;
+    justify-content: center; 
+    display: flex;
+    padding-top: 190px;
+}
+
+p-card{
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    display: flex;
+}
+
