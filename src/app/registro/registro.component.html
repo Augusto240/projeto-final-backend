@@ -1,43 +1,41 @@
-
 <div class="card flex justify-content-center">
-    <p-card header="Registro" [style]="{ width: '360px' }">
+  <p-card header="Registro" [style]="{ width: '360px' }">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <p-floatLabel>
+        <input pInputText id="nome" [(ngModel)]="nome" name="nome" required />
+        <label for="nome">Nome</label>
+      </p-floatLabel>
+      <br>
 
+      <p-floatLabel>
+        <input pInputText id="email" type="email" [(ngModel)]="email" name="email" required />
+        <label for="email">Email</label>
+      </p-floatLabel>
+      <br>
 
-            <p-floatLabel>
-                <input pInputText id="nome" [(ngModel)]="nome" />
-                <label for="username">Nome</label>
-            </p-floatLabel>
-            <br>
+      <p-floatLabel>
+        <p-password id="senha" [(ngModel)]="senha" name="senha" [toggleMask]="true" required></p-password>
+        <label for="senha">Senha</label>
+      </p-floatLabel>
+      <br>
+      <p-toast />
 
-            <p-floatLabel>
-                <input pInputText id="sobrenome" [(ngModel)]="sobrenome" />
-                <label for="username">Sobrenome</label>
-            </p-floatLabel>
+      <br>
 
-            <br>
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Escolher"
+        chooseIcon="pi pi-upload"
+        name="foto"
+        url="http://localhost:3000/api/criar"
+        accept="image/*"
+        maxFileSize="1000000"
+        (onUpload)="onUpload($event)"
+        (onError)="onUploadError($event)"
+      ></p-fileUpload>
 
-            <p-floatLabel>
-                <input pInputText id="usuario" [(ngModel)]="usuario" />
-                <label for="username">Usuário</label>
-            </p-floatLabel>
-
-            <br>
-
-            <p-floatLabel>
-                <input pInputText id="email" [(ngModel)]="email" />
-                <label for="username">Email</label>
-            </p-floatLabel>
-            
-            <br>
-
-            <p-floatLabel>
-            <p-password [(ngModel)]="senha" [toggleMask]="true"/>
-            <label for="senha">Senha</label>
-            </p-floatLabel>
-
-            <br>
-
-            <button [raised]="true" pButton pRipple label="Registrar" class="p-button-warning"></button>
-    </p-card>
+      <br>
+      <p-button type="submit" label="Registrar" class="p-button-warning"></p-button>
+    </form>
+  </p-card>
 </div>
-

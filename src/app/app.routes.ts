@@ -1,11 +1,17 @@
 import { Routes } from '@angular/router';
 import { RegistroComponent } from './registro/registro.component'
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+import { PostagemListaComponent } from './postagem-lista/postagem-lista.component';
+import { PostagemCriarComponent } from './postagem-criar/postagem-criar.component';
+import { ProfileComponent } from './profile/profile.component';
 
-export const routes: Routes = [
-    { path: '', redirectTo: 'app-login', pathMatch: 'full' },
-    { path: 'app-registro', component: RegistroComponent },
-    { path: 'app-login', component: LoginComponent },
-    { path: 'app-home', component: HomeComponent}
+const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'app-registro', component: RegistroComponent },
+  { path: 'postagens', component: PostagemListaComponent },
+  { path: 'postagem-criar', component: PostagemCriarComponent },
+  { path: 'profile', component: ProfileComponent },
 ];
+
+export default routes;

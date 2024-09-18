@@ -15,21 +15,24 @@ import { DividerModule } from 'primeng/divider';
 import { RouterLink } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { PanelModule } from 'primeng/panel';
-import { HomeComponent } from './home/home.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
-import {NgModule} from '@angular/core';
+import { ApiService } from './services/api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoginComponent, RegistroComponent,
-            CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule, ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule, RouterLink,
-            AvatarModule, PanelModule, ToolbarModule, HomeComponent, MenuModule, BadgeModule,
-            RippleModule],
+  imports: [
+    CommonModule, RouterOutlet, LoginComponent, RegistroComponent,
+    CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule,
+    ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule,
+    RouterLink, AvatarModule, PanelModule, ToolbarModule, MenuModule, BadgeModule,
+    HttpClientModule // Adicione esta linha
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'frontend';

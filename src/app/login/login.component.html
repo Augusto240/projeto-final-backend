@@ -2,20 +2,22 @@
 <div class="card flex justify-content-center">
     <p-card header="Fazer Login" [style]="{ width: '360px' }">
             <p-floatLabel>
-                <input pInputText id="username" [(ngModel)]="email" />
-                <label for="username">Usuário</label>
+                <input pInputText id="email" [(ngModel)]="email" />
+                <label for="email">Email</label>
             </p-floatLabel>
             <br>
-            
+
             <p-floatLabel>
             <p-password [(ngModel)]="senha" [toggleMask]="true"/>
             <label for="senha">Senha</label>
             </p-floatLabel>
 
             <br>
-            <button [routerLink]="['app-home']" (click)="irParaHome()" [raised]="true" pButton pRipple label="Login" class="p-button-warning"></button>
+            <button [routerLink]="['app-profile']" (click)="login()" [raised]="true" pButton pRipple label="Login" class="p-button-warning"></button>
             <br><br>
-            <button [routerLink]="['app-registro']" (click)="irParaRegistro()" [raised]="true" pButton pRipple label="Não possui cadastro? Registre-se" class="p-button-help"></button>
+            <!-- login.component.html -->
+          <button [routerLink]="['/app-registro']" pButton pRipple label="Não possui cadastro? Registre-se" class="p-button-help"></button>
+
     </p-card>
 </div>
 

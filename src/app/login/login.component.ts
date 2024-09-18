@@ -15,30 +15,40 @@ import { PanelModule } from 'primeng/panel';
 import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { CommonModule } from '@angular/common';
-import {NgModule} from '@angular/core';
+import { ApiService } from '../services/api.service'
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule,
-    ButtonModule, RippleModule, RouterModule, RouterLink, ToolbarModule, AvatarModule, PanelModule, MenuModule, BadgeModule, CommonModule],
+    ButtonModule, RippleModule, RouterModule, RouterLink, ToolbarModule, AvatarModule, PanelModule, MenuModule,
+    BadgeModule, CommonModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 
 export class LoginComponent {
-  email: any;
-  senha: any;
+  email: string = '';
+  senha: string = '';
+  mensagemErro: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router) { }
+
+  login(): void {
+    this.apiService.login(this.email, this.senha).subscribe(
+      response => {
+        localStorage.setItem('token', response.accessToken);
+        this.router.navigate(['/profile']); // Ajuste conforme a sua rota
+      },
+      error => {
+        this.mensagemErro = 'Usuário ou senha inválidos';
+      }
+    );
+  }
 
   irParaRegistro() {
-    this.router.navigate(['app-registro']);
+    this.router.navigate(['/app-registro']);
   }
-
-  irParaHome(){
-    this.router.navigate(['app-home'])
-  }
-
 }
