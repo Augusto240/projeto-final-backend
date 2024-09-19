@@ -5,9 +5,6 @@ import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import jwt_decode, { jwtDecode } from 'jwt-decode'; // Importação correta do jwt-decod
-
-
 
 @Component({
   selector: 'app-profile',
@@ -47,14 +44,35 @@ export class ProfileComponent implements OnInit {
 
   extractUserIdFromToken(token: string): number {
     try {
-      const decodedToken: any = jwtDecode(token);; // Decodifica o token JWT
-      return decodedToken.userId;
-      console.log(decodedToken.userId);
+      if (!token) {
+        throw new Error('Token não fornecido');
+      }
+  
+      // Token deve ter três partes: header, payload e signature
+      const parts = token.split('.');
+      if (parts.length !== 3) {
+        throw new Error('Token inválido');
+      }
+  
+      // Decodifica a parte do payload (base64url para base64)
+      const payload = atob(parts[1].replace(/_/g, '/').replace(/-/g, '+'));
+      const decodedToken = JSON.parse(payload);
+  
+      // Verifique o conteúdo decodificado
+      console.log(decodedToken);
+  
+      // Certifique-se de que o campo 'id' existe no payload
+      if (!decodedToken.id) {
+        throw new Error('ID não encontrado no token');
+      }
+  
+      return decodedToken.id;
     } catch (error) {
       console.error('Erro ao decodificar o token', error);
       return 0; // Valor padrão em caso de erro
     }
   }
+  
 
   editProfile(): void {
     this.router.navigate(['/edit-profile']); // Redireciona para a página de edição de perfil

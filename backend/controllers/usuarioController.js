@@ -59,7 +59,7 @@ export const getAllUsuario = async (req, res) => {
 };
 
 export async function getUsuarioById(req, res) {
-  const userId = req.user.id; // Pega o ID do usuário do token
+  const userId = req.params.id || req.user.id; // Pega o ID do usuário do token
   try {
     const usuario = await Usuario.findOne({ where: { id: userId } });
     if (!usuario) return res.status(404).send('Usuário não encontrado');

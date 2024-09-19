@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:3000/api/usuarios'; // URL correta para obter usuário
+  private apiUrl = 'http://localhost:3000/api'; // URL correta para obter usuário
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +15,6 @@ export class UsuarioService {
   }
 
   getUser(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+    return this.http.get<any>(`${this.apiUrl}/usuario/${userId}`);
   }
 }

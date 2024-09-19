@@ -21,6 +21,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

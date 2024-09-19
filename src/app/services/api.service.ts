@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -49,11 +49,10 @@ export class ApiService {
       headers: { Authorization: `Bearer ${token}` }
     });
   }
-  getUserProfile(token: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/perfil`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+  getUserProfile(): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    return this.http.get<any>(`${this.apiUrl}/usuario/${userId}`);
   }
-
+  
 
 }
