@@ -2,8 +2,14 @@
 <div class="card flex justify-content-center">
   <p-card header="Perfil do Usuário" [style]="{ width: '360px' }">
     <div class="p-d-flex p-ai-center">
+      <!-- Exibir avatar padrão se não houver foto -->
       <p-avatar label="A" size="large" *ngIf="!user.foto" [style]="{ backgroundColor: '#ccc' }"></p-avatar>
-      <img *ngIf="user.foto" [src]="user.foto" alt="Foto do Usuário" class="p-avatar p-mr-2" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+
+      <!-- Exibir foto do usuário se disponível -->
+      <img *ngIf="user.foto" [src]="user.foto" alt="Foto do Usuário"
+           class="p-avatar p-mr-2"
+           style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+
       <div class="p-ml-2">
         <p class="p-m-0"><strong>Nome:</strong> {{ user.nome }}</p>
         <p class="p-m-0"><strong>Email:</strong> {{ user.email }}</p>
