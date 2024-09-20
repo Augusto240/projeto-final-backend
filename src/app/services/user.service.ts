@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,7 +14,14 @@ export class UsuarioService {
     return this.http.post<any>(`${this.apiUrl}/criar`, usuarioData);
   }
 
-  getUser(userId: number, p0: unknown): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/usuario/${userId}`);
+  getUser(userId: number): Observable<any> {
+    // Obtém o token do localStorage
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Envia a requisição com o header de autorização
+    return this.http.get<any>(`${this.apiUrl}/usuario/${userId}`, { headers });
   }
 }

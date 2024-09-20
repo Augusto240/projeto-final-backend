@@ -6,7 +6,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -17,35 +17,47 @@ import { HttpHeaders } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
   user: any = {}; // Variável para armazenar os dados do usuário
   photoUrl: string = 'assets/default-avatar.png'; // URL padrão caso não tenha foto
-
-  constructor(private usuarioService: UsuarioService, private router: Router) { }
+  mensagemErro: string = ''; // Mens
+  constructor(private usuarioService: UsuarioService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadUserProfile(); // Carrega o perfil do usuário ao iniciar
   }
 
   loadUserProfile(): void {
-    const token = localStorage.getItem('token'); // Obtém o token do localStorage
+    const token = localStorage.getItem('token');
+    console.log('Token encontrado:', token); // Verifique se o token está aqui
     if (!token) {
-      throw new Error('Token não encontrado');
+        this.mensagemErro = 'Token não encontrado';
+        return;
     }
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      this.usuarioService.getUser(this.extractUserIdFromToken(token), { headers }).subscribe(
-        response => {
-          this.user = response; // Define o objeto user com a resposta do servidor
-          this.photoUrl = this.user.foto ? this.user.foto : 'assets/default-avatar.png'; // Atualiza a foto do perfil
-        },
 
-        error => {
-          console.error('Erro ao carregar perfil', error);
-          this.router.navigate(['/login']); // Redireciona para a página de login em caso de erro
-        }
-      );
-    } else {
-      this.router.navigate(['/login']); // Redireciona se não houver token
-    }
+    const decodedToken = this.decodeToken(token);
+    const userId = decodedToken.id; // ou a propriedade que contém o ID do usuário
+
+    this.usuarioService.getUser(userId).subscribe({
+      next: (retorno: any) => {
+        this.user = retorno; // Armazene os dados do usuário
+        this.cdr.detectChanges(); // Força a detecção de mudanças
+      },
+      error: (erro) => {
+        this.mensagemErro = 'Erro ao carregar perfil: ' + erro.message;
+      }
+    });
   }
+
+  decodeToken(token: string): any {
+    if (!token) {
+      throw new Error('Token não fornecido');
+    }
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      throw new Error('Token inválido');
+    }
+    const decoded = atob(parts[1]);
+    return JSON.parse(decoded);
+  }
+
 
 
   extractUserIdFromToken(token: string): number {
@@ -87,5 +99,9 @@ export class ProfileComponent implements OnInit {
   logout(): void {
     localStorage.removeItem('token'); // Remove o token do localStorage
     this.router.navigate(['/login']); // Redireciona para a página de login
+  }
+
+  postarAlgo(): void{
+    this.router.navigate(['/postagem-criar'])
   }
 }

@@ -1,4 +1,3 @@
-<p>profile works!</p>
 <div class="card flex justify-content-center">
   <p-card header="Perfil do Usuário" [style]="{ width: '360px' }">
     <div class="p-d-flex p-ai-center">
@@ -9,7 +8,7 @@
       <img *ngIf="user.foto" [src]="user.foto" alt="Foto do Usuário"
            class="p-avatar p-mr-2"
            style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-
+      <h4>Caso os dados não estejam sendo exibidos, atualizar a página!</h4>
       <div class="p-ml-2">
         <p class="p-m-0"><strong>Nome:</strong> {{ user.nome }}</p>
         <p class="p-m-0"><strong>Email:</strong> {{ user.email }}</p>
@@ -17,6 +16,9 @@
     </div>
     <br>
     <p-button label="Editar Perfil" icon="pi pi-pencil" (click)="editProfile()" pRipple></p-button>
+    <br><br>
     <p-button label="Sair" icon="pi pi-sign-out" (click)="logout()" pRipple class="p-button-danger p-ml-2"></p-button>
+    <br> <br>
+    <p-button label="Postar" icon="pi pi-plus" (click)="postarAlgo()" pRipple></p-button>
   </p-card>
 </div>

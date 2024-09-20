@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 const secretWord = process.env.ACCESS_TOKEN_SECRET || 'IFRN2@24'; // Use variável de ambiente preferencialmente
 
 export const verificarToken = (req, res, next) => {

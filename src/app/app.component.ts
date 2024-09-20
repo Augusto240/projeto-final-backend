@@ -21,7 +21,6 @@ import { BadgeModule } from 'primeng/badge';
 import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,7 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule,
     ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule,
     RouterLink, AvatarModule, PanelModule, ToolbarModule, MenuModule, BadgeModule,
-    HttpClientModule // Adicione esta linha
+    HttpClientModule,// Adicione esta linha
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

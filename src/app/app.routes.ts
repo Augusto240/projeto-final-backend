@@ -12,6 +12,8 @@ export const routes: Routes = [
   { path: 'postagens', component: PostagemListaComponent },
   { path: 'postagem-criar', component: PostagemCriarComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'app-profile', component: ProfileComponent },
+  { path: 'perfil', component: ProfileComponent },
 ];
 
 export default routes;

@@ -65,7 +65,7 @@ export class LoginComponent {
         console.log(retorno);
         if (retorno.acessToken) {
           localStorage.setItem('token', retorno.acessToken);
-          this.router.navigate(['/']);
+          this.router.navigate(['/profile']); // Mover para aqui
         } else {
           this.mensagemErro = 'Token não encontrado na resposta.';
         }
@@ -73,9 +73,9 @@ export class LoginComponent {
       error: (erro: HttpErrorResponse) => {
         this.mensagemErro = erro.error.mensagemerro;
       }
-      });
-      this.router.navigate(['/profile']);
+    });
   }
+
 
 
 
