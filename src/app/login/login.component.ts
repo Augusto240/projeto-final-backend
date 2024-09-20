@@ -14,6 +14,7 @@ import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +44,7 @@ export class LoginComponent {
   mensagemErro: string = '';
 
   constructor(private apiService: ApiService, private router: Router) { }
-  
+
   decodeToken(token: string): any {
     if (!token) {
       throw new Error('Token não fornecido');
@@ -57,16 +58,27 @@ export class LoginComponent {
   }
 
   login(): void {
-    this.apiService.login(this.email, this.senha).subscribe(
-      response => {
-        localStorage.setItem('token', response.accessToken);
-        this.router.navigate(['/profile']); // Verifique se a rota está correta
+    this.mensagemErro = '';
+
+    this.apiService.login(this.email, this.senha).subscribe({
+      next: (retorno: any) => {
+        console.log(retorno);
+        if (retorno.acessToken) {
+          localStorage.setItem('token', retorno.acessToken);
+          this.router.navigate(['/']);
+        } else {
+          this.mensagemErro = 'Token não encontrado na resposta.';
+        }
       },
-      error => {
-        this.mensagemErro = 'Usuário ou senha inválidos';
+      error: (erro: HttpErrorResponse) => {
+        this.mensagemErro = erro.error.mensagemerro;
       }
-    );
+      });
+      this.router.navigate(['/profile']);
   }
+
+
+
 
   irParaRegistro() {
     this.router.navigate(['/app-registro']);

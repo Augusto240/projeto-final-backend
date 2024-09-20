@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-const secretWord = 'IFRN2@24';
+const secretWord = process.env.ACCESS_TOKEN_SECRET || 'IFRN2@24'; // Use variável de ambiente preferencialmente
 
 export const verificarToken = (req, res, next) => {
   const token = req.headers.authorization?.replace('Bearer ', '');
@@ -22,13 +21,11 @@ export const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == null) return res.sendStatus(401);
+  if (token == null) return res.status(401).json({ mensagemerro: 'Token não fornecido. Faça login.' });
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user; // Definindo o usuário no req
+  jwt.verify(token, secretWord, (err, user) => {
+    if (err) return res.status(403).json({ mensagemerro: 'Token inválido. Faça login novamente.' });
+    req.user = user; // Define o usuário no req
     next();
   });
 };
-
-export default authenticateToken;

@@ -2,7 +2,8 @@ import express from 'express';
 import { registrarUsuario, login, logout, getAllUsuario, getUsuarioById, updateUsuario, deleteUsuario } from '../controllers/usuarioController.js';
 import { verificarToken } from '../middlewares/authMiddleware.js';
 import { Upload } from '../middlewares/fotoMiddleware.js';
-import authenticateToken from '../middlewares/authMiddleware.js';
+import { authenticateToken } from '../middlewares/authMiddleware.js';
+
 
 
 
