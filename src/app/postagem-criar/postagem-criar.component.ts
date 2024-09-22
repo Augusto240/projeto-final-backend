@@ -26,18 +26,18 @@ export class PostagemCriarComponent implements OnInit {
   mensagemErro: string = '';
 
   constructor(private usuarioService: UsuarioService, private router: Router, private messageService: MessageService) {}
-
   ngOnInit(): void {
     const token = localStorage.getItem('token');
+    console.log('Token:', token); // Verifique o token
     if (token) {
-      const decodedToken = this.decodeToken(token);
-      this.idUsuario = decodedToken.id;
-      console.log('ID do usuário:', this.idUsuario); // Verifique se o ID é exibido corretamente
+        const decodedToken = this.decodeToken(token);
+        this.idUsuario = decodedToken.id;
+        console.log('ID do usuário:', this.idUsuario);
     } else {
-      this.mensagemErro = 'Usuário não autenticado';
-      console.log(this.mensagemErro);
+        this.mensagemErro = 'Usuário não autenticado';
+        console.log(this.mensagemErro);
     }
-  }
+}
   
 
   decodeToken(token: string): any {
@@ -50,14 +50,17 @@ export class PostagemCriarComponent implements OnInit {
   }
 
   onUpload(event: FileUploadEvent) {
+    console.log('Evento de upload:', event); // Log do evento
     if (event.files && event.files.length > 0) {
-      this.selectedFile = event.files[0];
+      this.selectedFile = event.files[0]; // Armazena o arquivo selecionado
       console.log('Arquivo selecionado:', this.selectedFile);
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     } else {
       console.log('Nenhum arquivo selecionado');
-  } 
-}
+    }
+  }
+  
+
 
 
   onSubmit(): void {
@@ -85,8 +88,9 @@ export class PostagemCriarComponent implements OnInit {
     } else {
       this.mensagemErro = 'É necessário selecionar uma imagem e estar autenticado.';
       console.log(this.mensagemErro); // Logar mensagem de erro
+      error: (err: any) => {  console.error('Erro ao enviar a postagem:', err);  this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao enviar a postagem' });}
     }
-    error: (err: any) => {  console.error('Erro ao enviar a postagem:', err);  this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao enviar a postagem' });}
+    
   }
   
 }

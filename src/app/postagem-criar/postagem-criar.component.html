@@ -1,12 +1,13 @@
 <div class="card flex justify-content-center">
     <p-toast />
     <p-fileUpload
+    (onUpload)="onUpload($event)" 
     mode="basic"
     name="file"
     chooseIcon="pi pi-upload" 
+    url="http://localhost:3000/api/poste"
     accept="image/*"
-    maxFileSize="1000000"
-    url="https://www.primefaces.org/cdn/api/upload.php" 
+    maxFileSize="2000000"
     (onUpload)="onUpload($event)"
     customUpload="true"
     chooseLabel="Escolher Imagem">

@@ -1,0 +1,45 @@
+<p>edit-profile works!</p>
+
+<div class="card flex justify-content-center">
+  <p-card header="Edição de Perfil" [style]="{ width: '360px' }">
+    <form (ngSubmit)="atualizarUsuario()" #form="ngForm">
+      <p-floatLabel>
+        <input pInputText id="nome" [(ngModel)]="usuario.nome" name="nome" required />
+        <label for="nome">Nome</label>
+      </p-floatLabel>
+      <br>
+
+      <p-floatLabel>
+        <input pInputText id="email" type="email" [(ngModel)]="usuario.email" name="email" required />
+        <label for="email">Email</label>
+      </p-floatLabel>
+      <br>
+
+      <p-floatLabel>
+        <p-password id="senha" [(ngModel)]="usuario.senha" name="senha" [toggleMask]="true"></p-password>
+        <label for="senha">Nova Senha</label>
+      </p-floatLabel>
+      <br>
+
+      <p-toast></p-toast>
+
+      <br>
+
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Escolher Imagem"
+        chooseIcon="pi pi-upload"
+        name="foto"
+        url="http://localhost:3000/api/upload"
+        accept="image/*"
+        maxFileSize="1000000"
+        (onUpload)="onUpload($event)"
+        (onError)="onUploadError($event)">
+      </p-fileUpload>
+
+      <br>
+      <p-button type="submit" label="Atualizar" class="p-button-warning"></p-button>
+      <p *ngIf="mensagemErro" style="color: red;">{{ mensagemErro }}</p>
+    </form>
+  </p-card>
+</div>
