@@ -24,4 +24,14 @@ export class UsuarioService {
     // Envia a requisição com o header de autorização
     return this.http.get<any>(`${this.apiUrl}/usuario/${userId}`, { headers });
   }
+
+  enviarPostagem(postagemData: FormData): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.post<any>(`${this.apiUrl}/postagem/criar`, postagemData, { headers });
+  }
+  
 }
