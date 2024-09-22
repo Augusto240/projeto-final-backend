@@ -10,7 +10,4 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  createPost(post: any): Observable<any> {
-    return this.http.post(this.apiUrl, post);
-  }
 }

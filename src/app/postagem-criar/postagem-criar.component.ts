@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUploadModule, FileUploadEvent } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { UsuarioService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';  // Adicionando FormsModule
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-postagem-criar',
   standalone: true,
   imports: [FileUploadModule, ButtonModule, CommonModule, BadgeModule, HttpClientModule, ProgressBarModule, ToastModule, FormsModule],
   templateUrl: './postagem-criar.component.html',
-  styleUrl: './postagem-criar.component.css',
+  styleUrls: ['./postagem-criar.component.css'],
   providers: [MessageService, PrimeNGConfig]
 })
 export class PostagemCriarComponent implements OnInit {
@@ -25,18 +25,20 @@ export class PostagemCriarComponent implements OnInit {
   selectedFile: File | null = null;  // Arquivo de imagem
   mensagemErro: string = '';
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router, private messageService: MessageService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if (token) {
-      // Decodifica o token para obter o ID do usuário
       const decodedToken = this.decodeToken(token);
-      this.idUsuario = decodedToken.id;  // Ou use o nome correto da chave que contém o ID
+      this.idUsuario = decodedToken.id;
+      console.log('ID do usuário:', this.idUsuario); // Verifique se o ID é exibido corretamente
     } else {
       this.mensagemErro = 'Usuário não autenticado';
+      console.log(this.mensagemErro);
     }
   }
+  
 
   decodeToken(token: string): any {
     const parts = token.split('.');
@@ -47,22 +49,33 @@ export class PostagemCriarComponent implements OnInit {
     return JSON.parse(decoded);
   }
 
-  onSelectFile(event: any): void {
-    this.selectedFile = event.target.files[0];
-  }
+  onUpload(event: FileUploadEvent) {
+    if (event.files && event.files.length > 0) {
+      this.selectedFile = event.files[0];
+      console.log('Arquivo selecionado:', this.selectedFile);
+      this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
+    } else {
+      console.log('Nenhum arquivo selecionado');
+  } 
+}
+
 
   onSubmit(): void {
+    console.log('Método onSubmit chamado'); // Log para verificar se o método é chamado
+    console.log('Arquivo selecionado:', this.selectedFile);
+    console.log('ID do usuário:', this.idUsuario);
     if (this.selectedFile && this.idUsuario) {
+      console.log('Arquivo selecionado:', this.selectedFile);
+      console.log('ID do usuário:', this.idUsuario);
+  
       const formData = new FormData();
       formData.append('foto', this.selectedFile);
       formData.append('legenda', this.legenda);
-      formData.append('idUsuario', this.idUsuario.toString());
-
-      // Agora você pode enviar o formData para o servidor
-      this.usuarioService.enviarPostagem(formData).subscribe({
+  
+      this.usuarioService.enviarPostagem(formData, this.idUsuario!).subscribe({
         next: (res: any) => {
           console.log('Postagem enviada com sucesso:', res);
-          this.router.navigate(['/postagem-lista']); // Navega para a página de listagem de postagens
+          this.router.navigate(['/postagem-lista']);
         },
         error: (err: any) => {
           console.error('Erro ao enviar a postagem:', err);
@@ -71,6 +84,9 @@ export class PostagemCriarComponent implements OnInit {
       });
     } else {
       this.mensagemErro = 'É necessário selecionar uma imagem e estar autenticado.';
+      console.log(this.mensagemErro); // Logar mensagem de erro
     }
+    error: (err: any) => {  console.error('Erro ao enviar a postagem:', err);  this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao enviar a postagem' });}
   }
+  
 }

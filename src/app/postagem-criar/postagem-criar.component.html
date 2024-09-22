@@ -1,29 +1,30 @@
-<p>postagem-criar works!</p>
-
-<div class="card">
+<div class="card flex justify-content-center">
     <p-toast />
-    <p-fileUpload 
-    name="myfile[]" 
-    url="http://localhost:3000/api/poste/{{idUsuario}}" 
-    [multiple]="true" 
-    accept="image/*" 
-    maxFileSize="2000000" 
-    (onUpload)="onTemplatedUpload()" 
-    (onSelect)="onSelectedFiles($event)">
+    <p-fileUpload
+    mode="basic"
+    name="file"
+    chooseIcon="pi pi-upload" 
+    accept="image/*"
+    maxFileSize="1000000"
+    url="https://www.primefaces.org/cdn/api/upload.php" 
+    (onUpload)="onUpload($event)"
+    customUpload="true"
+    chooseLabel="Escolher Imagem">
 </p-fileUpload>
 
 </div>
-<br>
-<div class="card flex justify-content-center">
-    <div class="flex flex-column gap-2">
-        <label for="username">Username</label>
-        <input 
-            pInputText
-            id="username" 
-            aria-describedby="username-help" 
-            [(ngModel)]="value" />
-        <small id="username-help">
-            Enter your username to reset your password.
-        </small>
+    <br>
+    <!-- Campo de Legenda -->
+    <div class="card flex justify-content-center">
+        <div class="flex flex-column gap-2">
+            <label for="caption">Legenda da publicação</label>
+            <br>
+            <input pInputText id="caption" placeholder="Adicione uma legenda" [(ngModel)]="legenda" />
+        </div>
     </div>
-</div>
+    <br>
+    <!-- Botão de Publicar -->
+    <div class="flex justify-content-center mt-3">
+        <p-button label="Publicar" (onClick)="onSubmit()"></p-button>
+    </div>
+

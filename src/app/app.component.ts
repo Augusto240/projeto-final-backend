@@ -20,6 +20,7 @@ import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     CardModule, FormsModule, InputTextModule, FloatLabelModule, PasswordModule,
     ButtonModule, RippleModule, RouterModule, RegistroComponent, DividerModule,
     RouterLink, AvatarModule, PanelModule, ToolbarModule, MenuModule, BadgeModule,
-    HttpClientModule,// Adicione esta linha
+    HttpClientModule, FileUploadModule// Adicione esta linha
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
