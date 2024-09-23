@@ -1,22 +1,49 @@
-<p>postagem-lista works!</p>
-<div class="postagem-lista-container">
+<div class="card">
+  <p-menubar [model]="items">
+      <ng-template pTemplate="item" let-item let-root="root">
+          <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
+              <p-avatar 
+                  [image]="item.icon" 
+                  size="normal" 
+                  shape="circle" 
+                  class="mr-2" />
+              <span class="ml-2">{{ item.label }}</span>
+              <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge"></p-badge>
+              <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+              <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+          </a>
+      </ng-template>
+      <ng-template pTemplate="end">
+          <div class="flex align-items-center gap-2">
+              <p-avatar 
+                  image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F17%2F96%2F87%2F179687493bbd6c100f966f8bace30735.jpg&f=1&nofb=1&ipt=91f45e9aa1942ab8933bfae5dd7a62017a32b7d36ab792d16923e06b9e8f1b7f&ipo=images" 
+                  shape="circle" 
+                  class="ml-2" />
+          </div>
+      </ng-template>
+  </p-menubar>
+</div>
+
+
+
+
+<div class="postagem-lista-container" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
   <h2>Postagens</h2>
-  <div *ngFor="let postagem of postagens" class="card">
-    <p-panel>
+  <div *ngFor="let postagem of postagens" class="card" style="width: 100%; max-width: 600px;">
+    <p-card>
       <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
+        <div class="flex align-items-center">
           <p-avatar 
             [image]="postagem.usuario?.avatar || './favicon.ico'" 
-            size="large" 
-            shape="circle" />
-          <span class="font-bold">{{ postagem.usuario?.nome }}</span>
+            size="normal" 
+            shape="circle" 
+            class="mr-2" />
+          <span>{{ postagem.usuario?.nome }}</span>
         </div>
       </ng-template>
-      <p class="m-0">{{ postagem.descricao }}</p>
-      <ng-template pTemplate="footer">
-        <span class="p-text-secondary">Postado há {{ postagem.createdAt | date }}</span>
-      </ng-template>
-    </p-panel>
+      <p class="m-0">
+        {{ postagem.descricao }}
+      </p>
+    </p-card>
   </div>
-  
 </div>
