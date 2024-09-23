@@ -25,17 +25,17 @@ export class UsuarioService {
     return this.http.get<any>(`${this.apiUrl}/usuario/${userId}`, { headers });
   }
 
-  enviarPostagem(postagemData: FormData, userId: number): Observable<any> {
-    console.log('Enviando postagem:', postagemData); // Log para verificar dados enviados
-    console.log('Enviando postagem:', postagemData.get('foto')); // Verifique se a imagem está sendo enviada
+  enviarPostagem(postagemData: { descricao: string }, userId: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
     });
     
     return this.http.post<any>(`${this.apiUrl}/poste/${userId}`, postagemData, { headers });
-    
-  }
+}
+
+
     
   criarPostagem(postagem: any, token: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/poste/${postagem.idUsuario}`, postagem, {
@@ -48,7 +48,7 @@ export class UsuarioService {
     });
     return this.http.put<any>(`http://localhost:3000/api/usuario/${usuario.id}`, usuario, { headers });
   }
-  
+
   
   
 }

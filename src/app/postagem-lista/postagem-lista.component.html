@@ -1,20 +1,22 @@
 <p>postagem-lista works!</p>
 <div class="postagem-lista-container">
   <h2>Postagens</h2>
-  <p-table [value]="postagens">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Descrição</th>
-        <th>Foto</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-postagem>
-      <tr>
-        <td>{{ postagem.descricao }}</td>
-        <td>
-          <img *ngIf="postagem.foto" [src]="postagem.foto" alt="Foto da postagem" width="100"/>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div *ngFor="let postagem of postagens" class="card">
+    <p-panel>
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center gap-2">
+          <p-avatar 
+            [image]="postagem.usuario?.avatar || './favicon.ico'" 
+            size="large" 
+            shape="circle" />
+          <span class="font-bold">{{ postagem.usuario?.nome }}</span>
+        </div>
+      </ng-template>
+      <p class="m-0">{{ postagem.descricao }}</p>
+      <ng-template pTemplate="footer">
+        <span class="p-text-secondary">Postado há {{ postagem.createdAt | date }}</span>
+      </ng-template>
+    </p-panel>
+  </div>
+  
 </div>

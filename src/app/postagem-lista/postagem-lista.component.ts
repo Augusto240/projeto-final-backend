@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-
+import { AvatarModule } from 'primeng/avatar';
+import { PanelModule } from 'primeng/panel';
+import { Postagem } from '../../models/models'; // Atualize o caminho conforme necessário
 
 @Component({
   selector: 'app-postagem-lista',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [CommonModule, AvatarModule, PanelModule],
   templateUrl: './postagem-lista.component.html',
   styleUrls: ['./postagem-lista.component.css']
 })
 export class PostagemListaComponent implements OnInit {
-  postagens: any[] = [];
+  postagens: Postagem[] = [];
 
   constructor(private apiService: ApiService) { }
+  
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.apiService.getPostagens().subscribe(
-      data => this.postagens = data,
-      error => console.error('Erro ao carregar postagens', error)
+      postagens => {
+        console.log('Postagens carregadas:', postagens);
+      },
+      error => {
+        console.error('Erro ao carregar postagens:', error);
+      }
     );
   }
 }
+

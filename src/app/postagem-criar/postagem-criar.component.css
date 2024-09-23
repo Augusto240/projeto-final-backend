@@ -1,0 +1,32 @@
+.card {
+    max-width: 600px; /* Limita a largura da card */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #fff; /* Cor de fundo */
+}
+
+.card-header, .card-content, .card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza itens no eixo vertical */
+    text-align: center; /* Centraliza texto */
+}
+
+.card-header {
+    margin-bottom: 15px; /* Espaço entre o cabeçalho e o conteúdo */
+}
+
+.card-content textarea {
+    width: 100%; /* Ocupa toda a largura disponível */
+    resize: none; /* Remove a possibilidade de redimensionamento */
+}
+
+.card-footer {
+    margin-top: 15px; /* Espaço entre o conteúdo e o rodapé */
+}
+
+.p-text-secondary {
+    margin-top: 5px; /* Espaço acima do texto secundário */
+}

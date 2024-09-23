@@ -100,8 +100,11 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('token'); // Remove o token do localStorage
     this.router.navigate(['/login']); // Redireciona para a página de login
   }
-
-  postarAlgo(): void{
-    this.router.navigate(['/postagem-criar'])
+  postarAlgo(): void {
+    this.router.navigate(['/postagem-criar']).catch(err => {
+      console.error('Erro ao navegar para criação de postagem:', err);
+      this.mensagemErro = 'Erro ao carregar página de criação de postagem.';
+    });
   }
+  
 }

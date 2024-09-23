@@ -1,31 +1,27 @@
-<div class="card flex justify-content-center">
-    <p-toast />
-    <p-fileUpload
-    (onUpload)="onUpload($event)" 
-    mode="basic"
-    name="file"
-    chooseIcon="pi pi-upload" 
-    url="http://localhost:3000/api/poste"
-    accept="image/*"
-    maxFileSize="2000000"
-    (onUpload)="onUpload($event)"
-    customUpload="true"
-    chooseLabel="Escolher Imagem">
-</p-fileUpload>
-
-</div>
-    <br>
-    <!-- Campo de Legenda -->
-    <div class="card flex justify-content-center">
-        <div class="flex flex-column gap-2">
-            <label for="caption">Legenda da publicação</label>
-            <br>
-            <input pInputText id="caption" placeholder="Adicione uma legenda" [(ngModel)]="legenda" />
-        </div>
+<div class="card">
+    <div class="card-header">
+      <div class="flex align-items-center gap-2">
+        <p-avatar 
+          image="./favicon.ico" 
+          size="large" 
+          shape="circle">
+        </p-avatar>
+        <span class="font-bold">{{ usuarioNome }}</span>
+      </div>
     </div>
-    <br>
-    <!-- Botão de Publicar -->
-    <div class="flex justify-content-center mt-3">
-        <p-button label="Publicar" (onClick)="onSubmit()"></p-button>
+  
+    <div class="card-content">
+      <p class="m-0">
+        <textarea pInputTextarea [(ngModel)]="legenda" placeholder="Escreva algo..." rows="5"></textarea>
+      </p>
     </div>
-
+  
+    <div class="card-footer">
+      <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+        <p-button label="Postar" icon="pi pi-check" (click)="onSubmit()" [disabled]="!legenda"></p-button>
+        <br><br>
+        <span class="p-text-secondary">Postagem será públicada</span>
+      </div>
+    </div>
+  </div>
+  

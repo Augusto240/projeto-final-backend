@@ -10,11 +10,14 @@ import { ToastModule } from 'primeng/toast';
 import { UsuarioService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
+
 
 @Component({
   selector: 'app-postagem-criar',
   standalone: true,
-  imports: [FileUploadModule, ButtonModule, CommonModule, BadgeModule, HttpClientModule, ProgressBarModule, ToastModule, FormsModule],
+  imports: [FileUploadModule, ButtonModule, CommonModule, BadgeModule, HttpClientModule, ProgressBarModule, ToastModule, FormsModule, PanelModule, AvatarModule],
   templateUrl: './postagem-criar.component.html',
   styleUrls: ['./postagem-criar.component.css'],
   providers: [MessageService, PrimeNGConfig]
@@ -22,8 +25,8 @@ import { FormsModule } from '@angular/forms';
 export class PostagemCriarComponent implements OnInit {
   idUsuario: number | null = null;  // Armazena o ID do usuário
   legenda: string = '';  // Legenda da postagem
-  selectedFile: File | null = null;  // Arquivo de imagem
   mensagemErro: string = '';
+  usuarioNome: string = '';
 
   constructor(private usuarioService: UsuarioService, private router: Router, private messageService: MessageService) {}
   ngOnInit(): void {
@@ -32,65 +35,50 @@ export class PostagemCriarComponent implements OnInit {
     if (token) {
         const decodedToken = this.decodeToken(token);
         this.idUsuario = decodedToken.id;
+        this.usuarioNome = decodedToken.nome; // Adiciona o nome do usuário
         console.log('ID do usuário:', this.idUsuario);
+        console.log('Nome do usuário:', this.usuarioNome); // Log para verificar o nome
     } else {
         this.mensagemErro = 'Usuário não autenticado';
         console.log(this.mensagemErro);
     }
 }
-  
 
-  decodeToken(token: string): any {
+decodeToken(token: string): any {
     const parts = token.split('.');
     if (parts.length !== 3) {
       throw new Error('Token inválido');
     }
     const decoded = atob(parts[1]);
     return JSON.parse(decoded);
-  }
+}
 
-  onUpload(event: FileUploadEvent) {
-    console.log('Evento de upload:', event); // Log do evento
-    if (event.files && event.files.length > 0) {
-      this.selectedFile = event.files[0]; // Armazena o arquivo selecionado
-      console.log('Arquivo selecionado:', this.selectedFile);
-      this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
-    } else {
-      console.log('Nenhum arquivo selecionado');
-    }
-  }
-  
+onSubmit(): void {
+  console.log('Método onSubmit chamado'); // Log para verificar se o método é chamado
+  console.log('ID do usuário:', this.idUsuario);
 
+  if (this.legenda && this.idUsuario) {
+      const postData = {
+          descricao: this.legenda, // Envie a descrição diretamente
+      };
 
-
-  onSubmit(): void {
-    console.log('Método onSubmit chamado'); // Log para verificar se o método é chamado
-    console.log('Arquivo selecionado:', this.selectedFile);
-    console.log('ID do usuário:', this.idUsuario);
-    if (this.selectedFile && this.idUsuario) {
-      console.log('Arquivo selecionado:', this.selectedFile);
-      console.log('ID do usuário:', this.idUsuario);
-  
-      const formData = new FormData();
-      formData.append('foto', this.selectedFile);
-      formData.append('legenda', this.legenda);
-  
-      this.usuarioService.enviarPostagem(formData, this.idUsuario!).subscribe({
-        next: (res: any) => {
-          console.log('Postagem enviada com sucesso:', res);
-          this.router.navigate(['/postagem-lista']);
-        },
-        error: (err: any) => {
-          console.error('Erro ao enviar a postagem:', err);
-          this.mensagemErro = 'Erro ao enviar a postagem';
-        }
+      this.usuarioService.enviarPostagem(postData, this.idUsuario).subscribe({
+          next: (res: any) => {
+              console.log('Postagem enviada com sucesso:', res);
+              this.router.navigate(['/postagem-lista']);
+          },
+          error: (err: any) => {
+              console.error('Erro ao enviar a postagem:', err);
+              this.mensagemErro = 'Erro ao enviar a postagem';
+          }
       });
-    } else {
-      this.mensagemErro = 'É necessário selecionar uma imagem e estar autenticado.';
+  } else {
+      this.mensagemErro = 'É necessário preencher a descrição e estar autenticado.';
       console.log(this.mensagemErro); // Logar mensagem de erro
-      error: (err: any) => {  console.error('Erro ao enviar a postagem:', err);  this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao enviar a postagem' });}
-    }
-    
   }
+}
+
+
+
   
 }

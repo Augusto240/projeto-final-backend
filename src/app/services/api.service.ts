@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { forkJoin, map, mergeMap } from 'rxjs';
+import { Postagem, Usuario } from '../../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,30 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/criar`, usuario);
   }
 
-  getPostagens(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/poste`);
+  getToken(): string {
+    return localStorage.getItem('token') || ''; // ou qualquer outro método que você use
   }
+  
+  getPostagens(): Observable<Postagem[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`
+    });
+  
+    return this.http.get<Postagem[]>(`${this.apiUrl}/poste`, { headers }).pipe(
+      mergeMap(postagens => 
+        forkJoin(
+          postagens.map(postagem => 
+            this.http.get<Usuario>(`${this.apiUrl}/usuarios/${postagem.idUsuario}`, { headers }).pipe(
+              map(usuario => ({ ...postagem, usuario }))
+            )
+          )
+        ) as Observable<Postagem[]> // Aqui
+      )
+    );
+  }
+  
+
+  
 
   getPostagensByUsuario(idUsuario: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/poste/${idUsuario}`);

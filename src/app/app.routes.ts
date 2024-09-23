@@ -6,6 +6,7 @@ import { PostagemCriarComponent } from './postagem-criar/postagem-criar.componen
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
+
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,8 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'app-profile', component: ProfileComponent },
   { path: 'perfil', component: ProfileComponent },
-  { path: 'edit-profile', component: EditProfileComponent }
+  { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'postagem-lista', component: PostagemListaComponent }
 ];
 
 export default routes;
